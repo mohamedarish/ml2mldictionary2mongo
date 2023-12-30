@@ -16,6 +16,10 @@ collection = db[COLLECTION_NAME]
 with open("dictionary/dictionary.json", "r", encoding="utf-8-sig") as file:
     data = json.load(file)
 
+for item in data:
+    if "id" in item:
+        del item["id"]
+
 results = collection.insert_many(data)
 
 print(f"Inserted {len(results.inserted_ids)} documents into the collection:")
