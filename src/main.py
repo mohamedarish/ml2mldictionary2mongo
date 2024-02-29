@@ -2,13 +2,22 @@ import json
 from pymongo import MongoClient
 from dotenv import load_dotenv
 import os
+from pymongo.mongo_client import MongoClient
+from pymongo.server_api import ServerApi
 
 load_dotenv()
 
 DATABASE_NAME = os.getenv("MONGO_DB")
 COLLECTION_NAME = os.getenv("MONGO_COLLECTION")
 
-client = MongoClient()
+password = os.getenv("password")
+
+uri = f"mongodb+srv://malo:{password}@cluster0.x1jcief.mongodb.net/?retryWrites=true&w=majority"
+
+client = MongoClient(
+    uri,
+    server_api=ServerApi("1"),
+)
 
 db = client[DATABASE_NAME]
 collection = db[COLLECTION_NAME]
